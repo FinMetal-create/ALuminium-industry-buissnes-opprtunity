@@ -32,3 +32,37 @@ Script: [`.claude/workflows/aluminium-opportunity-swarm.js`](.claude/workflows/a
 ## Outputs
 
 `reports/` – CEO memo and one report per specialist agent.
+
+## Run outcome (21 Oct 2026)
+
+**Score went from 5.5/10 to 8.9/10 over 6 rounds. Not yet approved.**
+
+| Round | Verdict | Score | Criteria failed |
+|---|---|---|---|
+| 1 | Rejected | 5.5 | 8 |
+| 2 | Rejected | 7.4 | 4 |
+| 3 | Rejected | 8.1 | 3 |
+| 4 | Rejected | 8.5 | 3 |
+| 5 | Rejected | 8.8 | 3 |
+| 6 | Rejected | 8.9 | 2 |
+
+The swarm ran 49 agents in total. The CEO checked the arithmetic and it holds. The four small fixes from round 6 have been applied.
+
+**What still blocks approval:** four facts that need normal corporate access. The research environment's network policy blocked EEX, Eurostat, EUR-Lex and the metal price services, so the agents could not fetch them.
+
+| # | Missing item | Owner |
+|---|---|---|
+| 1 | EEX Phelix DE baseload settlements for Cal-28 to Cal-31 | Head of Energy |
+| 2 | Whether a converter-foil anti-dumping expiry review was requested (duties lapse 9 Dec 2026) | General Counsel |
+| 3 | Our scrap purchase prices by grade, and the Comext export unit value for HS 7602 | Procurement + Recycling |
+| 4 | Comext tonnage for 2025 EU imports of Chinese semis | CSO analyst |
+
+The CEO's position: approval without a rewrite once these are attached, unless Cal-31 settles at or below €64/MWh.
+
+## Files
+
+- `reports/ceo-strategy-memo.md`: final board paper (v6 plus the round-6 fixes)
+- `reports/ceo-strategy-memo-v1-initial.md`: first draft
+- `reports/ceo-review-log.md`: the CEO's verdict, feedback and gap tasks for every round
+- `reports/research/`: the 8 specialist reports
+- `reports/gap-research/`: 20 gap-closing briefs
