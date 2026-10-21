@@ -1,9 +1,12 @@
 export const meta = {
   name: 'aluminium-opportunity-swarm',
-  description: 'Swarm of research agents scanning future aluminium demand and next-gen production (robotics, AI, green) for an EU aluminium CEO, then a strategy synthesis',
+  description: 'Swarm of research agents scanning future aluminium demand and next-gen production (robotics, AI, green) for an EU aluminium CEO, then a strategy synthesis refined in a CEO review loop until approved',
   phases: [
     { title: 'Research', detail: '8 specialist agents: 4 demand-side, 4 supply/production-side' },
     { title: 'Synthesis', detail: 'Chief strategy agent ranks opportunities into a CEO memo' },
+    { title: 'CEO Review', detail: 'Results-driven CEO grades memo against hard criteria; rejects until board-ready' },
+    { title: 'Gap Research', detail: 'New agents close every gap the CEO flags' },
+    { title: 'Revise', detail: 'Strategy agent rewrites the memo; loop back to CEO review' },
   ],
 }
 
@@ -88,4 +91,78 @@ Be decisive and specific; cite the most important numbers with their sources. Do
 RESEARCH REPORTS:
 ${digest}`, { label: 'synthesis:ceo-memo', phase: 'Synthesis', effort: 'high' })
 
-return { memo, reports: ok.map(r => ({ key: r.key, title: r.title, report_markdown: r.report_markdown, key_numbers: r.key_numbers, opportunities: r.opportunities })), failed }
+// ---- CEO review loop: the CEO does not accept "good enough". Iterate until approved. ----
+const CRITERIA = `SUCCESS CRITERIA (all must be met for APPROVED):
+1. Every opportunity in the ranked portfolio has a quantified market/demand figure (tonnes or EUR, with year) AND a cited source URL.
+2. The top 3 opportunities each have a real business case: capex range (EUR), expected revenue at maturity, EBITDA margin estimate, payback/IRR estimate, named partners/targets/customers, and first-12-month milestones.
+3. Robotics as demand is quantified with explicit math (kg Al per unit x unit forecast = tonnes, for 2030 and 2035), with low/base/high scenarios.
+4. Robotics/AI in our own production has a quantified business case (EUR/t cost savings, safety, capex, vendors) and a clear decision on adopt vs co-develop vs sell-as-a-service.
+5. EU competitiveness is addressed head-on: power price assumptions (EUR/MWh), CBAM effect in EUR/t, Chinese overcapacity — with what we do about each.
+6. The 90-day plan has owners (by role), deliverables, budget and KPIs.
+7. Clear GO / NO-GO / WATCH recommendation for each opportunity. No vague language ("could consider", "explore"), no unsupported key claims.
+8. Internally consistent numbers (no contradictions between sections).`
+
+const REVIEW_SCHEMA = {
+  type: 'object',
+  properties: {
+    verdict: { type: 'string', enum: ['APPROVED', 'REJECTED'] },
+    score_1_to_10: { type: 'number' },
+    failed_criteria: { type: 'array', items: { type: 'string' } },
+    gaps: { type: 'array', description: 'Concrete research tasks needed to close the gaps, most important first', items: {
+      type: 'object', properties: { task: { type: 'string' }, why: { type: 'string' } }, required: ['task', 'why'] } },
+    ceo_feedback: { type: 'string', description: 'Blunt feedback to the strategy team' },
+  },
+  required: ['verdict', 'score_1_to_10', 'failed_criteria', 'gaps', 'ceo_feedback'],
+}
+
+const MAX_ROUNDS = 6        // runaway backstop only; reported honestly if hit
+const GAPS_PER_ROUND = 4
+let current = memo
+let approved = false
+const reviewHistory = []
+const gapResearch = []
+for (let round = 1; round <= MAX_ROUNDS; round++) {
+  phase('CEO Review')
+  const review = await agent(`You are the CEO of a mid-to-large EU aluminium company. You are extremely results-driven and you do NOT accept mediocre work: your team cannot stop until this strategy is board-ready and investable. Today is ${TODAY}.
+Grade the strategy memo below strictly against the criteria. If ANY criterion is not fully met, verdict = REJECTED. Score honestly (9+ only if you would take it to the board tomorrow). List the specific research tasks (max ${GAPS_PER_ROUND}, most important first) that would close the gaps — tasks must be concrete and researchable on the web.
+
+${CRITERIA}
+
+PREVIOUS REVIEW ROUNDS: ${reviewHistory.length ? JSON.stringify(reviewHistory.map(r => ({ round: r.round, score: r.score_1_to_10, failed: r.failed_criteria }))) : 'none'}
+
+STRATEGY MEMO (round ${round}):
+${current}`, { label: `ceo-review:r${round}`, phase: 'CEO Review', schema: REVIEW_SCHEMA, effort: 'high' })
+  if (!review) { log(`Round ${round}: CEO review agent failed; continuing with next round`); continue }
+  reviewHistory.push({ round, ...review })
+  log(`Round ${round}: ${review.verdict} — score ${review.score_1_to_10}/10, ${review.failed_criteria.length} criteria failed`)
+  if (review.verdict === 'APPROVED') { approved = true; break }
+  if (round === MAX_ROUNDS) break
+
+  const gaps = review.gaps.slice(0, GAPS_PER_ROUND)
+  if (review.gaps.length > GAPS_PER_ROUND) log(`Round ${round}: ${review.gaps.length - GAPS_PER_ROUND} lower-priority gaps deferred to next round`)
+  const fills = (await parallel(gaps.map((g, i) => () =>
+    agent(`${CONTEXT}\n\nThe CEO REJECTED the strategy memo and needs this gap closed with hard numbers and sources:\nTASK: ${g.task}\nWHY IT MATTERS: ${g.why}\n\nResearch it thoroughly (WebSearch/WebFetch). Return a focused Markdown brief (500-1000 words) with quantified findings, explicit calculations, assumptions, and source URLs. If data truly does not exist, give a reasoned estimate with stated assumptions and ranges.`,
+      { label: `gap-research:r${round}-${i + 1}`, phase: 'Gap Research' })
+      .then(t => t ? { round, task: g.task, brief: t } : null)
+  ))).filter(Boolean)
+  gapResearch.push(...fills)
+
+  phase('Revise')
+  const revised = await agent(`You are the Chief Strategy Officer. The CEO rejected your memo (score ${review.score_1_to_10}/10).
+CEO FEEDBACK: ${review.ceo_feedback}
+FAILED CRITERIA: ${review.failed_criteria.join(' | ')}
+
+${CRITERIA}
+
+NEW GAP RESEARCH:
+${fills.map(f => `### ${f.task}\n${f.brief}`).join('\n\n')}
+
+Rewrite the FULL memo (same section structure, keep everything that was good, fix every failed criterion, integrate the new research with sources). Output only the complete revised Markdown memo.
+
+CURRENT MEMO:
+${current}`, { label: `revise:r${round}`, phase: 'Revise', effort: 'high' })
+  if (revised) current = revised
+}
+if (!approved) log(`Stopped after ${MAX_ROUNDS} rounds without CEO approval — final memo is best version so far`)
+
+return { memo: current, initial_memo: memo, approved, review_history: reviewHistory, gap_research: gapResearch, reports: ok.map(r => ({ key: r.key, title: r.title, report_markdown: r.report_markdown, key_numbers: r.key_numbers, opportunities: r.opportunities })), failed }
