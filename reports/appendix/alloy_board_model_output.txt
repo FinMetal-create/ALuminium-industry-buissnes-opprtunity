@@ -1,0 +1,420 @@
+== CASE A
+  A4 low/high/base [1.8, 6.4, 3.4]
+  gross low/high/base [26.85, 54.69, 37.41]  net [21.48, 43.75, 29.93]
+  EBITDA low/high/base [18.48, 41.75, 27.43]
+  A base, no grant
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027    -9.0    -0.5   -0.0    0.0    0.0   -9.5   -9.5
+  2028   -10.0     5.5   -1.1    0.0    0.0   -5.6  -15.1
+  2029    -6.0    15.5   -3.5    0.0    0.0    6.0   -9.0
+  2030    -2.0    27.4   -6.4    0.0    0.0   19.0   10.0
+  2031    -0.5    27.4   -6.4    0.0    0.0   20.5   30.5
+  2032    -0.5    27.4   -6.4    0.0    0.0   20.5   51.1
+  2033    -0.5    27.4   -6.4    0.0    0.0   20.5   71.6
+  2034    -0.5    27.4   -6.4    0.0    0.0   20.6   92.2
+  2035    -0.5    27.4   -6.4    0.0    0.0   20.6  112.8
+  2036    -0.5    27.4   -6.4    0.0    0.0   20.6  133.3
+  2037    -0.5    27.4   -6.3    0.0    0.0   20.6  153.9
+  2038    -0.5    27.4   -6.3    0.0    0.0   20.6  174.5
+  2039    -0.5    27.4   -6.3    0.0    0.0   20.6  195.1
+  2040    -0.5    27.4   -6.3    0.0    0.0   20.6  215.7
+  A base, no grant: NPV10 99.7  IRR 66.9%  payback 2030
+  A base + IF grant 4.2: NPV10 103.3  IRR 74.3%  payback 2030
+  A +10% capex contingency: NPV10 97.5  IRR 61.6%  payback 2030
+  A low (capex 35, low levers, opex 3): NPV10 52.0  IRR 35.8%  payback 2031
+  A high (capex 18, high levers, opex 2): NPV10 173.4  IRR 147.3%  payback 2029
+  A scrap spread 5 points (A2 10.8): NPV10 65.0  IRR 53.8%  payback 2030
+  A no A2: NPV10 27.0  IRR 31.7%  payback 2031
+  A A4 = 0 (no premium): NPV10 88.7  IRR 63.1%  payback 2030
+  capability gross 2027-29: 12.2
+== B-EXT
+  B-ext base 15 kt x 400
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027    -4.0     0.3   -0.0    0.0    0.0   -3.7   -3.7
+  2028    -3.5     2.7   -0.6   -0.5    0.0   -1.8   -5.6
+  2029     0.0     4.3   -0.9   -0.5    0.0    2.8   -2.7
+  2030    -0.2     5.5   -1.2    0.0    0.0    4.1    1.3
+  2031    -0.2     5.5   -1.2    0.0    0.0    4.1    5.4
+  2032    -0.2     5.5   -1.2    0.0    0.0    4.1    9.5
+  2033    -0.2     5.5   -1.2    0.0    0.0    4.1   13.5
+  2034    -0.2     5.5   -1.2    0.0    0.0    4.1   17.6
+  2035    -0.2     5.5   -1.2    0.0    0.0    4.1   21.7
+  2036    -0.2     5.5   -1.2    0.0    0.0    4.1   25.7
+  2037    -0.2     5.5   -1.2    0.0    0.0    4.1   29.8
+  2038    -0.2     5.5   -1.2    0.0    0.0    4.1   33.9
+  2039    -0.2     5.5   -1.2    0.0    0.0    4.1   38.0
+  2040    -0.2     5.5   -1.2    1.0    0.0    5.1   43.1
+  B-ext base 15 kt x 400: NPV10 19.1  IRR 49.2%  payback 2030
+  B-ext stress 12 x 300: NPV10 7.9  IRR 28.1%  payback 2031
+  B-ext spot 20 x 400: NPV10 27.1  IRR 58.7%  payback 2030
+  B-ext +10% capex: NPV10 18.5  IRR 44.9%  payback 2030
+== NHT contribution, EUR/t of alloy
+  basis A: 368 (low 149, high 649)  primary 0.360 t/t, scrap 0.550 t/t
+  basis B: 231 (low 24, high 532)  primary 0.360 t/t, scrap 0.550 t/t
+  basis C: 164 (low -169, high 512)  primary 0.360 t/t, scrap 0.550 t/t
+  P1020 DP 2431; billet mid-cycle margin 186.7; NHT price 2700
+  sensitivities (basis B): prem 180/400 -> [142, 362]  wrought share 0/1 -> [368, 94]
+== NHT cash tables and runs
+  NHT decision basis: 30 kt, P1020 basis, +10% contingency, no grant
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027    -2.8     0.0   -0.0    0.0    0.0   -2.8   -2.8
+  2028   -20.3     0.0   -0.0    0.0    0.0  -20.3  -23.1
+  2029    -0.7    -0.1   -0.0   -1.3    0.0   -2.1  -25.2
+  2030     0.0     2.7   -0.3   -2.6    0.0   -0.2  -25.4
+  2031    -0.4     5.4   -1.0   -2.6    0.0    1.5  -23.9
+  2032    -0.4     5.4   -0.9    0.0    0.0    4.1  -19.8
+  2033    -0.4     5.4   -0.9    0.0    0.0    4.1  -15.8
+  2034    -0.4     5.4   -0.9    0.0    0.0    4.1  -11.7
+  2035    -0.4     5.4   -0.9    0.0    0.0    4.1   -7.5
+  2036    -0.4     5.4   -0.9    0.0    0.0    4.1   -3.4
+  2037    -0.4     5.4   -0.9    0.0    0.0    4.1    0.7
+  2038    -0.4     5.4   -0.9    0.0    0.0    4.1    4.8
+  2039    -0.4     5.4   -0.9    0.0    0.0    4.1    8.9
+  2040    -0.4     5.4   -0.9    6.5    0.0   10.6   19.5
+  NHT decision basis: 30 kt, P1020 basis, +10% contingency, no grant: NPV10 -4.1  IRR 7.3%  payback 2037
+  NHT 30 kt, P1020 basis, no contingency: NPV10 -2.6  IRR 8.2%  payback 2037
+  NHT 30 kt, billet basis, +10% contingency: NPV10 -12.1  IRR 1.3%  payback 2040
+  NHT 30 kt at memo-r2 EUR 280, +10% contingency: NPV10 1.7  IRR 11.1%  payback 2036
+  NHT 30 kt, P1020 basis, contingency, IF grant 6.3: NPV10 1.4  IRR 11.1%  payback 2036
+  NHT 30 kt, P1020 basis, contingency, fixed 2.0: NPV10 -6.5  IRR 5.6%  payback 2038
+  NHT 28 kt, P1020 basis, contingency: NPV10 -5.7  IRR 6.1%  payback 2038
+  NHT low 20 kt, billet basis: NPV10 -17.8  IRR -5.2%  payback None
+  NHT high 40 kt x 350: NPV10 23.0  IRR 22.4%  payback 2033
+  break-even volume: EUR 280 no-cont 26.8 kt; EUR 280 cont 28.3; P1020 basis cont 35.0; billet basis cont 51.9
+  20 kt: break-even contribution 386 EUR/t; premium over P1020 DP 424; vol x contrib 7.72 EUR M/yr
+  25 kt: break-even contribution 314 EUR/t; premium over P1020 DP 352; vol x contrib 7.84 EUR M/yr
+  28 kt: break-even contribution 283 EUR/t; premium over P1020 DP 321; vol x contrib 7.92 EUR M/yr
+  30 kt: break-even contribution 266 EUR/t; premium over P1020 DP 303; vol x contrib 7.97 EUR M/yr
+  35 kt: break-even contribution 231 EUR/t; premium over P1020 DP 269; vol x contrib 8.09 EUR M/yr
+  40 kt: break-even contribution 205 EUR/t; premium over P1020 DP 243; vol x contrib 8.21 EUR M/yr
+== B-ROD
+  year  S   A   rod-v-ingot  billet-v-ingot  rod-minus-billet
+  2019  290  200       97        135        -38
+  2020  220  170       72         75         -3
+  2021  440  300      184        264        -81
+  2022  630  450      313        428       -115
+  2023  280  230      123        126         -3
+  2024  240  220      115         92         23
+  2025  350  300      184        187         -3
+  2026  750  700      528        532         -3
+  mid-cycle: S 350, A 267.1, rod 155.3, billet 186.7, diff -31.4
+  rod beats billet when A >= S - 46 US$/t
+  ledger 2031 NHT=True: spare 45.0, NHT primary 19.0, rod primary need 57.6, from ingot 26.0, from billet 31.6 (55%)
+  ledger 2031 NHT=False: spare 45.0, NHT primary 0.0, rod primary need 57.6, from ingot 45.0, from billet 12.6 (22%)
+  NHT at 30 kt: primary 10.8 kt + hub wrought scrap 8.3 kt (backfilled) = draw 19.0 kt; external cast scrap 8.3 kt
+-- CENTRAL matched adders
+  S1' rod upgrades ingot, cycle replay: NPV10 29.8  IRR 21.6%  payback 2032
+  S1m rod upgrades ingot, mid-cycle: NPV10 19.4  IRR 18.0%  payback 2033
+  S2' displaces billet, mid-cycle: NPV10 -33.4  IRR -10.0%  payback None
+  S3' displaces billet, 2026 matched pair: NPV10 -24.3  IRR -2.9%  payback None
+  S4' displaces billet, cycle replay: NPV10 -35.5  IRR -38.6%  payback None
+  S5' switchable (idle -44/t), cycle replay: NPV10 -29.7  IRR -7.3%  payback None
+  L  ledger, NHT built, billet tranche switchable
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027   -22.6     0.0   -0.0    0.0    0.0  -22.6  -22.6
+  2028   -15.4     7.9   -1.3   -2.0    0.0  -10.8  -33.4
+  2029    -0.5     2.5   -0.0    0.0    0.0    2.0  -31.4
+  2030    -0.5     4.2   -0.4    0.0    0.0    3.3  -28.2
+  2031    -0.5     7.1   -1.1    0.0    0.0    5.5  -22.7
+  2032    -0.5    10.4   -1.9    0.0    0.0    8.0  -14.7
+  2033    -0.5     6.8   -1.0    0.0    0.0    5.3   -9.4
+  2034    -0.5     7.4   -1.2    0.0    0.0    5.7   -3.7
+  2035    -0.5     8.4   -1.4    0.0    0.0    6.5    2.8
+  2036    -0.5    17.2   -3.6    0.0    0.0   13.1   15.9
+  2037    -0.5     5.1   -0.6    0.0    0.0    4.0   19.9
+  2038    -0.5     5.5   -0.7    0.0    0.0    4.3   24.3
+  2039    -0.5     7.1   -1.0    0.0    0.0    5.5   29.8
+  2040    -0.5    10.4   -1.9    2.0    0.0   10.0   39.9
+  L  ledger, NHT built, billet tranche switchable: NPV10 2.6  IRR 11.2%  payback 2035
+  L  ledger, NHT built, not switchable: NPV10 0.2  IRR 10.1%  payback 2035
+  L0 ledger, no NHT, switchable: NPV10 18.4  IRR 17.6%  payback 2033
+  L  ledger, NHT built, switchable, +10% line contingency: NPV10 -0.5  IRR 9.8%  payback 2036
+  L  ledger, NHT built, switchable, no Al-Zr: NPV10 -11.7  IRR 3.3%  payback 2039
+  L  ledger, NHT built, switchable, spare primary 25 kt: NPV10 -18.1  IRR -0.2%  payback None
+  L  ledger, NHT built, switchable, spare primary 75 kt: NPV10 28.5  IRR 21.2%  payback 2032
+-- 2026 adder 525 (0.7 x spread)
+  S1' rod upgrades ingot, cycle replay: NPV10 25.5  IRR 20.0%  payback 2032
+  S1m rod upgrades ingot, mid-cycle: NPV10 19.4  IRR 18.0%  payback 2033
+  S2' displaces billet, mid-cycle: NPV10 -33.4  IRR -10.0%  payback None
+  S3' displaces billet, 2026 matched pair: NPV10 -77.1  IRR n/a  payback None
+  S4' displaces billet, cycle replay: NPV10 -41.1  IRR n/a  payback None
+  S5' switchable (idle -44/t), cycle replay: NPV10 -31.2  IRR -8.5%  payback None
+  L  ledger, NHT built, billet tranche switchable: NPV10 -0.6  IRR 9.7%  payback 2035
+  L  ledger, NHT built, not switchable: NPV10 -4.0  IRR 8.0%  payback 2036
+  L0 ledger, no NHT, switchable: NPV10 14.6  IRR 16.1%  payback 2034
+  L  ledger, NHT built, switchable, +10% line contingency: NPV10 -3.7  IRR 8.4%  payback 2036
+  L  ledger, NHT built, switchable, no Al-Zr: NPV10 -14.9  IRR 1.4%  payback 2040
+  L  ledger, NHT built, switchable, spare primary 25 kt: NPV10 -20.2  IRR -1.4%  payback None
+  L  ledger, NHT built, switchable, spare primary 75 kt: NPV10 24.3  IRR 19.6%  payback 2033
+-- LOW adders
+  S1' rod upgrades ingot, cycle replay: NPV10 8.6  IRR 13.6%  payback 2034
+  S1m rod upgrades ingot, mid-cycle: NPV10 2.4  IRR 11.1%  payback 2035
+  S2' displaces billet, mid-cycle: NPV10 -55.8  IRR n/a  payback None
+  S3' displaces billet, 2026 matched pair: NPV10 -100.2  IRR n/a  payback None
+  S4' displaces billet, cycle replay: NPV10 -63.0  IRR n/a  payback None
+  S5' switchable (idle -44/t), cycle replay: NPV10 -37.5  IRR -14.5%  payback None
+  L  ledger, NHT built, billet tranche switchable: NPV10 -12.0  IRR 3.9%  payback 2038
+  L  ledger, NHT built, not switchable: NPV10 -21.9  IRR -3.2%  payback None
+  L0 ledger, no NHT, switchable: NPV10 -0.1  IRR 10.0%  payback 2036
+  L  ledger, NHT built, switchable, +10% line contingency: NPV10 -15.2  IRR 2.8%  payback 2039
+  L  ledger, NHT built, switchable, no Al-Zr: NPV10 -28.0  IRR -9.0%  payback None
+  L  ledger, NHT built, switchable, spare primary 25 kt: NPV10 -28.1  IRR -7.2%  payback None
+  L  ledger, NHT built, switchable, spare primary 75 kt: NPV10 7.7  IRR 13.2%  payback 2035
+-- HIGH adders
+  S1' rod upgrades ingot, cycle replay: NPV10 47.1  IRR 27.3%  payback 2032
+  S1m rod upgrades ingot, mid-cycle: NPV10 37.6  IRR 24.7%  payback 2032
+  S2' displaces billet, mid-cycle: NPV10 -13.0  IRR 3.7%  payback 2038
+  S3' displaces billet, 2026 matched pair: NPV10 -12.0  IRR 4.2%  payback 2038
+  S4' displaces billet, cycle replay: NPV10 -15.2  IRR 2.5%  payback 2038
+  S5' switchable (idle -44/t), cycle replay: NPV10 -15.2  IRR 2.5%  payback 2038
+  L  ledger, NHT built, billet tranche switchable: NPV10 17.6  IRR 17.7%  payback 2033
+  L  ledger, NHT built, not switchable: NPV10 17.6  IRR 17.7%  payback 2033
+  L0 ledger, no NHT, switchable: NPV10 34.8  IRR 23.5%  payback 2032
+  L  ledger, NHT built, switchable, +10% line contingency: NPV10 14.5  IRR 15.9%  payback 2034
+  L  ledger, NHT built, switchable, no Al-Zr: NPV10 3.5  IRR 11.8%  payback 2035
+  L  ledger, NHT built, switchable, spare primary 25 kt: NPV10 -4.2  IRR 7.9%  payback 2036
+  L  ledger, NHT built, switchable, spare primary 75 kt: NPV10 45.7  IRR 26.9%  payback 2032
+-- Withdrawn r2 recalled adders (midpoints) -- upper-bound check
+  S1' rod upgrades ingot, cycle replay: NPV10 79.8  IRR 36.9%  payback 2031
+  S1m rod upgrades ingot, mid-cycle: NPV10 78.6  IRR 38.1%  payback 2031
+  S2' displaces billet, mid-cycle: NPV10 28.6  IRR 21.5%  payback 2032
+  S3' displaces billet, 2026 matched pair: NPV10 -31.0  IRR -7.9%  payback None
+  S4' displaces billet, cycle replay: NPV10 17.8  IRR 17.1%  payback 2033
+  S5' switchable (idle -44/t), cycle replay: NPV10 17.8  IRR 17.1%  payback 2033
+  L  ledger, NHT built, billet tranche switchable: NPV10 50.4  IRR 29.4%  payback 2032
+  L  ledger, NHT built, not switchable: NPV10 50.4  IRR 29.4%  payback 2032
+  L0 ledger, no NHT, switchable: NPV10 67.6  IRR 33.8%  payback 2031
+  L  ledger, NHT built, switchable, +10% line contingency: NPV10 47.3  IRR 27.1%  payback 2032
+  L  ledger, NHT built, switchable, no Al-Zr: NPV10 36.3  IRR 25.2%  payback 2032
+  L  ledger, NHT built, switchable, spare primary 25 kt: NPV10 28.7  IRR 21.9%  payback 2032
+  L  ledger, NHT built, switchable, spare primary 75 kt: NPV10 78.5  IRR 36.6%  payback 2031
+  rod EBITDA 2031 mid-cycle: S1 12.60, ledger blend 6.76 (billet share 55%), S2 1.96
+  rod EBITDA at 2026 prices, ledger blend: 17.24
+== PORTFOLIO (combined tax)
+  Case A + full capability centre: NPV10 79.0  IRR 46.0%  payback 2031
+  Capability centre alone (cost): NPV10 -26.1  IRR n/a  payback None
+  P0 committed: A + B-ext + capability + 90-day + pre-gate options
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027   -13.4    -5.8   -0.0    0.0    0.0  -19.2  -19.2
+  2028   -16.0     5.4   -0.9   -0.5    0.0  -12.0  -31.2
+  2029    -7.0    17.0   -3.6   -0.5    0.0    5.9  -25.3
+  2030    -2.2    30.1   -6.9    0.0    0.0   21.0   -4.3
+  2031    -0.7    30.1   -6.9    0.0    0.0   22.6   18.3
+  2032    -0.7    30.1   -6.9    0.0    0.0   22.6   40.9
+  2033    -0.7    30.1   -6.9    0.0    0.0   22.6   63.4
+  2034    -0.7    30.1   -6.8    0.0    0.0   22.6   86.0
+  2035    -0.7    30.1   -6.8    0.0    0.0   22.6  108.6
+  2036    -0.7    30.1   -6.8    0.0    0.0   22.6  131.2
+  2037    -0.7    30.1   -6.8    0.0    0.0   22.6  153.9
+  2038    -0.7    30.1   -6.8    0.0    0.0   22.6  176.5
+  2039    -0.7    30.1   -6.8    0.0    0.0   22.6  199.1
+  2040    -0.7    30.1   -6.8    1.0    0.0   23.7  222.8
+  P0 committed: A + B-ext + capability + 90-day + pre-gate options: NPV10 95.2  IRR 43.0%  payback 2031
+  P0 with 10% contingency on A and B-ext: NPV10 92.4  IRR 40.3%  payback 2031
+  P1 = P0 + NHT (gate passed, decision basis): NPV10 92.2  IRR 31.5%  payback 2032
+  P2 = P1 + B-rod (ledger blend, switchable, line contingency): NPV10 92.0  IRR 23.7%  payback 2032
+== B-ROD gate tests (central adders, ledger with NHT, switchable)
+  break-even spare primary (incl. A3 15 kt): base capex 42.2 kt; +10% line 45.5 kt; +10% and no Al-Zr 61.0 kt
+  L-BL ledger + billet-linked adder (A >= S - 46), +10% line: NPV10 7.2  IRR 13.1%  payback 2034
+  L-BL ledger + billet-linked adder, +10% line, no Al-Zr: NPV10 -7.0  IRR 6.6%  payback 2036
+  L-BL ledger + billet-linked adder, LOW adders, +10% line: NPV10 6.7  IRR 12.9%  payback 2035
+  L at EUR 40M line (+contingency 10%): NPV10 -4.2  IRR 8.3%  payback 2036
+  ledger by year (NHT built): year spare NHTprim rodNeed fromIngot fromBillet share
+  2028  30.0   0.0  15.2  15.2   0.0    0%
+  2029  35.0   3.8  45.5  31.2  14.3   31%
+  2030  45.0  11.4  57.6  33.6  24.0   42%
+  2031  45.0  19.0  57.6  26.0  31.6   55%
+== Investment build-up, committed (gross)
+  90-day plan (opex)                         1.90  {2026: 1.9}
+  Case A capex and development              27.00  {2027: 9, 2028: 10, 2029: 6, 2030: 2}
+  B-ext capex                                7.50  {2027: 4.0, 2028: 3.5}
+  B-ext working capital                      1.00  {2028: 0.5, 2029: 0.5}
+  Capability centre (gross)                 12.20  {2027: 3.1, 2028: 5.3, 2029: 3.8}
+  Contingency 10% of A + B-ext capex         3.45  {2027: 1.3, 2028: 1.35, 2029: 0.6, 2030: 0.2}
+  NHT pre-gate qualification (option)        0.80  {2027: 0.8}
+  B-rod studies and quotes (option)          0.20  {2027: 0.2}
+  committed by year {2026: 1.9, 2027: 18.4, 2028: 20.65, 2029: 10.9, 2030: 2.2}  total 54.05
+  NHT option after gate: capex+qual {2027: 1.98, 2028: 20.32, 2029: 0.7} 23.0 + WC 6.48
+  B-rod option incl. 10% line contingency + WC {2027: 24.76, 2028: 18.84, 2029: 0.5} 44.1
+== Decision-basis cash tables for options
+  B-rod decision basis: ledger, NHT built, switchable, +10% line contingency
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027   -24.8     0.0   -0.0    0.0    0.0  -24.8  -24.8
+  2028   -16.8     7.9   -1.3   -2.0    0.0  -12.2  -37.0
+  2029    -0.5     2.5   -0.0    0.0    0.0    2.0  -35.0
+  2030    -0.5     4.2   -0.3    0.0    0.0    3.3  -31.6
+  2031    -0.5     7.1   -1.1    0.0    0.0    5.5  -26.1
+  2032    -0.5    10.4   -1.9    0.0    0.0    8.0  -18.1
+  2033    -0.5     6.8   -1.0    0.0    0.0    5.4  -12.7
+  2034    -0.5     7.4   -1.1    0.0    0.0    5.8   -6.9
+  2035    -0.5     8.4   -1.3    0.0    0.0    6.5   -0.4
+  2036    -0.5    17.2   -3.5    0.0    0.0   13.2   12.8
+  2037    -0.5     5.1   -0.5    0.0    0.0    4.1   16.9
+  2038    -0.5     5.5   -0.6    0.0    0.0    4.4   21.3
+  2039    -0.5     7.1   -1.0    0.0    0.0    5.6   26.9
+  2040    -0.5    10.4   -1.8    2.0    0.0   10.1   37.0
+  B-rod decision basis: ledger, NHT built, switchable, +10% line contingency: NPV10 -0.5  IRR 9.8%  payback 2036
+  B-rod decision basis without Al-Zr: NPV10 -14.9  IRR 2.1%  payback 2040
+  B-rod decision basis, LOW adders: NPV10 -15.2  IRR 2.8%  payback 2039
+  NHT at 35 kt, P1020 basis, contingency: NPV10 -0.0  IRR 10.0%  payback 2036
+  NHT at 30 kt x 273 (gate EUR 8.2M/yr): NPV10 0.9  IRR 10.6%  payback 2036
+== R4.1 A1 netted against the furnace-robot case (board paper 6(b): metal-loss EUR 7.3/t)
+  low: sweetening 8.6 + yield 4.9 = 13.5 EUR/t pre-cap; yield share 36.1%; on capped 5: yield 1.80, charge 3.20, retained yield 0.54 -> A1 net 3.74 EUR/t = 1.12 EUR M/yr (removed 0.38)
+  high: sweetening 21.6 + yield 12.2 = 33.7 EUR/t pre-cap; yield share 36.1%; on capped 15: yield 5.41, charge 9.59, retained yield 2.70 -> A1 net 12.30 EUR/t = 3.69 EUR M/yr (removed 0.81)
+  base: sweetening 15.1 + yield 8.5 = 23.6 EUR/t pre-cap; yield share 36.1%; on capped 10: yield 3.61, charge 6.39, retained yield 1.44 -> A1 net 7.84 EUR/t = 2.35 EUR M/yr (removed 0.65)
+  robot metal-loss saving 0.30% x P1020 DP = 7.29 EUR/t; robot + A1 base = 15.1 EUR/t (rev3 17.3)
+== R4.2 scrap hub (#2) on the board paper's own model (life 2027-42, loss carry-forward)
+  board reproduction: 12 pts NPV -7.9 (EBITDA at 100% 9.77); 14 pts NPV 11.2; 15 pts (ladder) 20.8
+  strict windows (75% upgraded): 12 pts -27.1; 14 pts -11.1; 15 pts -3.1
+  post-FID capex phasing 5/40/5: 12 pts -5.7; 14 pts 13.5; 15 pts 23.0
+  start-up slips to Q3 2029: 12 pts -8.1; 14 pts 9.4
+  R1 window value (75% -> 90% upgraded), board phasing: 12 pts 19.2 NPV, 3.88/yr EBITDA
+  uplift per input t (gate 270): {'u0.75 s12': 194, 'u0.9 s12': 233, 'u0.75 s15': 242, 'u0.9 s15': 291, 'u0.9 s14': 272}  share needed at 15 pts: 0.835
+== R4.3 Case A restated: A1 netted; A2 = casthouse-side down-shift net of hub output, on the hub's Board dates
+  year  A1    A2(kt)  A2    A3    A4    A5   gross  net   EBITDA
+  2027  0.98    0.0  0.00  0.00  0.00  0.00   0.98  0.78  -0.72
+  2028  2.35   28.0  4.83  0.00  0.00  1.00   8.18  6.54   4.04
+  2029  2.35   46.9  8.09  2.15  0.00  2.20  14.79 11.83   9.33
+  2030  2.35   40.0  6.90  6.46  3.40  3.00  22.11 17.69  15.19
+  2031  2.35   40.0  6.90  6.46  3.40  3.00  22.11 17.69  15.19
+  steady state 2031 low: A1 1.12 A2 1.29 A3 4.31 A4 1.80 A5 2.00 gross 10.52 haircut -2.10 net 8.42 opex -3.00 EBITDA 5.42
+  steady state 2031 high: A1 3.69 A2 21.55 A3 12.93 A4 6.40 A5 5.00 gross 49.57 haircut -9.91 net 39.65 opex -2.00 EBITDA 37.65
+  steady state 2031 base: A1 2.35 A2 6.90 A3 6.46 A4 3.40 A5 3.00 gross 22.11 haircut -4.42 net 17.69 opex -2.50 EBITDA 15.19
+  A2 share of gross (base 2031): 31.2%; A2 base rev3 21.55 -> rev4 6.90 (-68%)
+-- Case A rev4 runs
+  A4 decision basis: hub built on Board dates, C 130 kt, 8 pts net, no grant
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027    -9.0    -0.7   -0.0    0.0    0.0   -9.7   -9.7
+  2028   -10.0     4.0   -0.7    0.0    0.0   -6.7  -16.4
+  2029    -6.0     9.3   -1.9    0.0    0.0    1.4  -15.0
+  2030    -2.0    15.2   -3.3    0.0    0.0    9.8   -5.1
+  2031    -0.5    15.2   -3.3    0.0    0.0   11.4    6.2
+  2032    -0.5    15.2   -3.3    0.0    0.0   11.4   17.6
+  2033    -0.5    15.2   -3.3    0.0    0.0   11.4   29.0
+  2034    -0.5    15.2   -3.3    0.0    0.0   11.4   40.3
+  2035    -0.5    15.2   -3.3    0.0    0.0   11.4   51.7
+  2036    -0.5    15.2   -3.3    0.0    0.0   11.4   63.1
+  2037    -0.5    15.2   -3.3    0.0    0.0   11.4   74.5
+  2038    -0.5    15.2   -3.3    0.0    0.0   11.4   85.9
+  2039    -0.5    15.2   -3.3    0.0    0.0   11.4   97.3
+  2040    -0.5    15.2   -3.3    0.0    0.0   11.4  108.8
+  A4 decision basis: hub built on Board dates, C 130 kt, 8 pts net, no grant: NPV10 45.3  IRR 39.7%  payback 2031
+  A4 +10% capex contingency: NPV10 43.2  IRR 36.2%  payback 2031
+  A4 with IF grant 4.2: NPV10 49.0  IRR 45.3%  payback 2031
+  A4 low: capex 35, C 100, 6 pts, low levers, opex 3: NPV10 -6.5  IRR 5.7%  payback 2037
+  A4 high: capex 18, C 190, 10 pts, high levers, opex 2: NPV10 150.6  IRR 118.2%  payback 2029
+  A4 C 100 kt (hub built): NPV10 26.6  IRR 28.7%  payback 2032
+  A4 C 190 kt (hub built): NPV10 80.6  IRR 55.9%  payback 2030
+  A4 6 pts net: NPV10 38.1  IRR 34.9%  payback 2031
+  A4 10 pts net: NPV10 52.6  IRR 44.6%  payback 2031
+  A4 hub start-up slips to Q3 2029: NPV10 48.4  IRR 43.3%  payback 2031
+  A4 hub not built, A2 on 100 kt purchased at 8 pts (needs alternative scrap source): NPV10 80.6  IRR 55.9%  payback 2030
+  A4 potlines curtailed from 2030: scrap-fed casthouse, C >= 190 kt from 2030 (hub built): NPV10 78.7  IRR 53.4%  payback 2030
+  A4 A2 = 0: NPV10 16.2  IRR 20.6%  payback 2033
+  A4 A4 = 0 (no premium): NPV10 34.4  IRR 34.3%  payback 2031
+  A4 fallback: no scrap source at all (A2 = A3 = 0; A1 + A4 + A5 only): NPV10 -5.8  IRR 5.4%  payback 2037
+  A4 with A1 at rev3 EUR 10/t (robot overlap not netted): NPV10 48.3  IRR 42.1%  payback 2031
+  A4 re-scoped if T2 fails by 31 Oct 2027 (T1 spend 5.5 only; A1 + A5; opex 1.0): NPV10 8.3  IRR 30.7%  payback 2031
+-- bridge rev3 -> rev4 (NPV10)
+  rev3 Case A 99.7; explicit lever ramp 99.7 (-0.0); A1 netted vs robots 96.7 (-3.0); A2 at 8 pts net of quality cost on purchased grades 80.6 (-16.0); hub output crowds out A2 tonnes on Board dates 45.3 (-35.3)
+== R4.4 Case A + scrap hub as one investment (Case A rev4 cash flows + board-paper hub model)
+  12 pts (board base): hub -7.9 + Case A 45.3 = combined 37.4  IRR 17.4%
+  14 pts (FID gate): hub 11.2 + Case A 45.3 = combined 56.6  IRR 20.7%
+  15 pts (public ladder central): hub 20.8 + Case A 45.3 = combined 66.1  IRR 22.3%
+  12 pts, strict windows 75% (no Case A): hub -27.1 + Case A 45.3 = combined 18.3  IRR 13.8%
+  post-FID phasing 12 pts: hub -5.7, combined 39.7 IRR 18.5%
+  post-FID phasing 14 pts: hub 13.5, combined 58.8 IRR 22.1%
+  post-FID phasing 15 pts: hub 23.0, combined 68.4 IRR 23.9%
+  start-up slips to Q3 2029, 12 pts: hub -8.1 + Case A 48.4 = 40.3
+  hub output sold externally at -1.5 pts, casthouse keeps full A2 pool, 12 pts: hub -22.3 + Case A 80.6 = 58.4
+  hub output sold externally at -1.5 pts, casthouse keeps full A2 pool, 14 pts: hub -3.1 + Case A 80.6 = 77.5
+  hub output sold externally at -1.5 pts, casthouse keeps full A2 pool, 15 pts: hub 6.5 + Case A 80.6 = 87.1
+  Case A with no hub: 80.6
+  casthouse scrap capacity C 100 kt: Case A 26.6; + hub 12 pts 18.7; + hub 14 pts 37.8; Case A without hub 80.6
+  casthouse scrap capacity C 130 kt: Case A 45.3; + hub 12 pts 37.4; + hub 14 pts 56.6; Case A without hub 80.6
+  casthouse scrap capacity C 190 kt: Case A 80.6; + hub 12 pts 72.7; + hub 14 pts 91.9; Case A without hub 80.6
+  potlines curtailed from 2030 (C >= 190): hub 12 pts -7.9 + Case A 78.7 = 70.8
+  potlines curtailed from 2030 (C >= 190): hub 14 pts 11.2 + Case A 78.7 = 89.9
+  spread at which Case A + hub (internal) = Case A without hub: 16.5 pts; external offtake route: 14.3 pts (hub NPV = 0 at -1.5 pts)
+  spread at which hub NPV = 0 (board model): 12.8 pts
+  combined cash flow, 12 pts (EUR M): year capexA+hub  CF  cum
+  2027 CaseA   -9.7 hub  -27.5 combined  -37.2 cum  -37.2
+  2028 CaseA   -6.7 hub  -33.8 combined  -40.4 cum  -77.6
+  2029 CaseA    1.4 hub    6.8 combined    8.3 cum  -69.4
+  2030 CaseA    9.8 hub    7.4 combined   17.3 cum  -52.1
+  2031 CaseA   11.4 hub    7.2 combined   18.5 cum  -33.6
+  2035 CaseA   11.4 hub    7.2 combined   18.5 cum   40.5
+  2040 CaseA   11.4 hub    7.2 combined   18.6 cum  133.4
+  2042 CaseA    0.0 hub   17.2 combined   17.2 cum  157.7
+  expected value at P(FID) 0.5, 12 pts: 59.0 (with hub 37.4, without 80.6)
+  expected value at P(FID) 0.5, 14 pts: 68.6 (with hub 56.6, without 80.6)
+== R4.5 potlines curtailed from 2030: ledger scenario and gate tests (B-rod, NHT)
+  purchases if curtailed: rod 57.6 kt + NHT 10.8 kt = 68.4 kt x 2431 = EUR 166M/yr
+  B-rod ref: decision basis, ICC renewed: NPV10 -0.5  IRR 9.8%  payback 2036
+  B-rod curtailed from 2030, penalty 70: NPV10 9.2  IRR 13.6%  payback 2035
+  B-rod curtailed from 2030, penalty 115: NPV10 -1.8  IRR 9.3%  payback 2036
+  B-rod curtailed from 2030, penalty 160: NPV10 -10.2  IRR 5.3%  payback 2036
+  B-rod curtailed from 2031, penalty 70: NPV10 10.6  IRR 14.2%  payback 2035
+  B-rod curtailed from 2031, penalty 115: NPV10 1.6  IRR 10.7%  payback 2036
+  B-rod curtailed from 2031, penalty 160: NPV10 -6.9  IRR 6.8%  payback 2036
+  B-rod curtailed 2030, pen 115, LOW adders: NPV10 -21.0  IRR -0.2%  payback None
+  B-rod curtailed 2030, pen 115, HIGH adders: NPV10 16.3  IRR 16.3%  payback 2033
+  B-rod curtailed 2030, pen 115, no Al-Zr: NPV10 -17.6  IRR 1.2%  payback 2040
+  B-rod curtailed 2030, pen 115, + EUR 10M solid-feed melter in 2029: NPV10 -9.4  IRR 6.4%  payback 2036
+  B-rod break-even remelt penalty (curtailed 2030): 108 EUR/t
+  B-rod break-even flat adder from 2030 (US$/t over P1020 DP): pen 115 313; + EUR 10M melter 350; no Al-Zr 384; pen 160 365; mid-cycle today 267
+  rod margin from purchased ingot, mid-cycle: 155 - 115 = 40 EUR/t; EBITDA incl. Al-Zr 6.05
+  NHT under curtailment: basis-B contribution 231 - primary 0.360 t x 115 = 190 EUR/t (scrap and price formula unchanged)
+  NHT ref: decision basis, ICC renewed: NPV10 -4.1  IRR 7.3%  payback 2037
+  NHT curtailed from 2030, pen 70: NPV10 -7.0  IRR 5.2%  payback 2039
+  NHT curtailed from 2030, pen 115: NPV10 -8.8  IRR 3.8%  payback 2039
+  NHT curtailed from 2030, pen 160: NPV10 -10.7  IRR 2.3%  payback 2040
+  NHT curtailed from 2031, pen 115: NPV10 -8.4  IRR 4.1%  payback 2039
+  NHT curtailed 2030, pen 115, with IF grant 6.3 (not a decision basis): NPV10 -3.4  IRR 7.3%  payback 2038
+  NHT break-even volume at 231: ICC renewed 35.0 kt; curtailed 2030 43.3 kt
+== R4.6 NHT gate restated: volume-specific, binding on BOTH ledger cases, + EUR 15/t margin, volume counted 25-40 kt
+  kt  BE renewed  BE curtailed  gate contrib (max+15, up to 5)  price over P1020 DP  gate x vol  NPV renewed  NPV curtailed
+  25     314     353     370     408   9.25    5.6    1.6
+  28     283     322     340     378   9.52    6.4    2.0
+  30     266     305     325     363   9.75    7.1    2.4
+  32     250     290     310     348   9.92    7.6    2.5
+  35     231     271     290     328  10.15    8.2    2.7
+  38     215     254     270     308  10.26    8.3    2.3
+  40     205     245     260     298  10.40    8.7    2.4
+  rev3 gate check: 30 kt x 273 = 8.19 vs 40 kt break-even product 8.21 (rev3 floor 8.2 sits below it)
+  NHT 30 kt at rev3 example EUR 273, curtailed 2030: NPV10 -3.8  IRR 7.4%  payback 2037
+  NHT 30 kt at rev4 gate contribution, curtailed 2030: NPV10 2.4  IRR 11.5%  payback 2036
+  NHT 30 kt at rev4 gate contribution, ICC renewed: NPV10 7.1  IRR 14.3%  payback 2035
+  board paper #5 trigger (OEM nomination >= 20 kt/yr) at today's EUR 231:   NHT 20 kt, 231, ICC renewed: NPV10 -12.4  IRR 0.3%  payback 2040
+-- both options built, curtailed 2030 (pen 115), NPV10 sum: -10.6  vs ICC renewed: -4.6
+== R4.7 PORTFOLIO, revision 4 basis (combined tax; Case A rev4)
+  rev3 reference P0: NPV10 95.2  IRR 43.0%  payback 2031
+  Case A rev4 + full capability centre: NPV10 24.6  IRR 23.2%  payback 2032
+  P0 rev4 committed: A + B-ext + capability + 90-day + pre-gate options
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027   -13.4    -6.0   -0.0    0.0    0.0  -19.4  -19.4
+  2028   -16.0     3.9   -0.5   -0.5    0.0  -13.1  -32.5
+  2029    -7.0    10.8   -2.1   -0.5    0.0    1.2  -31.2
+  2030    -2.2    17.9   -3.8    0.0    0.0   11.9  -19.4
+  2031    -0.7    17.9   -3.8    0.0    0.0   13.4   -6.0
+  2032    -0.7    17.9   -3.8    0.0    0.0   13.4    7.4
+  2033    -0.7    17.9   -3.8    0.0    0.0   13.4   20.8
+  2034    -0.7    17.9   -3.8    0.0    0.0   13.4   34.2
+  2035    -0.7    17.9   -3.8    0.0    0.0   13.4   47.6
+  2036    -0.7    17.9   -3.8    0.0    0.0   13.4   61.0
+  2037    -0.7    17.9   -3.7    0.0    0.0   13.4   74.5
+  2038    -0.7    17.9   -3.7    0.0    0.0   13.5   87.9
+  2039    -0.7    17.9   -3.7    0.0    0.0   13.5  101.4
+  2040    -0.7    17.9   -3.7    1.0    0.0   14.5  115.9
+  P0 rev4 committed: A + B-ext + capability + 90-day + pre-gate options: NPV10 40.9  IRR 26.1%  payback 2032
+  P0 rev4 with 10% contingency on A and B-ext: NPV10 38.1  IRR 24.2%  payback 2032
+  P0 rev4, hub not built (A2 on purchased 100 kt): NPV10 76.2  IRR 36.8%  payback 2031
+  B-ext, potlines curtailed from 2030 (1370/6101 billet from purchased P1020, -115/t on 15 kt): NPV10 12.1  IRR 39.2%  payback 2030
+  P0 rev4, potlines curtailed from 2030 (Case A C >= 190; B-ext remelt penalty): NPV10 67.2  IRR 33.7%  payback 2031
+  P0 rev4, Case A low case: NPV10 -11.1  IRR 5.4%  payback 2037
+  P0 rev4, fallback (no scrap source: A2 = A3 = 0): NPV10 -10.3  IRR 5.1%  payback 2037
+  P0 rev4, Case A re-scoped after a failed T2: NPV10 3.8  IRR 13.0%  payback 2034
+  P1 rev4 = P0 + NHT (decision basis, ICC renewed): NPV10 37.9  IRR 19.7%  payback 2033
+  P2 rev4 = P1 + B-rod (ICC renewed): NPV10 37.7  IRR 16.0%  payback 2034
+  P2 rev4, potlines curtailed from 2030 (Case A C>=190; NHT and B-rod on purchased P1020, pen 115): NPV10 58.9  IRR 18.9%  payback 2033
+  2031 EBITDA: Case A rev4 15.19 ; B-ext 5.5 ; capability -2.8 ; committed 17.89
