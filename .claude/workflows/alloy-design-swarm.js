@@ -106,7 +106,7 @@ const REVIEW_SCHEMA = {
   required: ['verdict', 'score_1_to_10', 'failed_criteria', 'gaps', 'ceo_feedback'],
 }
 
-const MAX_ROUNDS = 4
+const MAX_ROUNDS = 5
 const GAPS_PER_ROUND = 3
 let current = memo
 let approved = false
