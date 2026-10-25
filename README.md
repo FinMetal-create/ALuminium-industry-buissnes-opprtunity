@@ -66,3 +66,23 @@ The CEO's position: approval without a rewrite once these are attached, unless C
 - `reports/ceo-review-log.md`: the CEO's verdict, feedback and gap tasks for every round
 - `reports/research/`: the 8 specialist reports
 - `reports/gap-research/`: 20 gap-closing briefs
+
+## Alloy design swarm (25 Oct 2026)
+
+Script: [`.claude/workflows/alloy-design-swarm.js`](.claude/workflows/alloy-design-swarm.js). 6 specialist agents, a CTO/CSO synthesis, then the CEO review loop. 28 agents in total.
+
+**Score went from 6.6/10 to 8.9/10 over 5 rounds. Not yet approved.**
+
+| Round | Score | Criteria failed |
+|---|---|---|
+| 1 | 6.6 | 8 |
+| 2 | 8.2 | 4 |
+| 3 | 8.5 | 3 |
+| 4 | 8.8 | 2 |
+| 5 | 8.9 | 3 |
+
+**What still blocks approval:** the A2 lever (paying less for lower-grade scrap) uses a typed-in spread of 8 net points. The real figure depends on our own scrap purchase mix by grade, which is internal data. On the memo's own price ladder, 4–5 points is more likely, which would bring Case A to about EUR 17–20M of NPV instead of EUR 31M.
+
+The strategy agents wrote [`reports/appendix/alloy_board_model.py`](reports/appendix/alloy_board_model.py), a model that uses only the Python standard library and prints every figure in the memo. Run `python3 reports/appendix/alloy_board_model.py` to reproduce them.
+
+Outputs are in `reports/alloy-design/`.

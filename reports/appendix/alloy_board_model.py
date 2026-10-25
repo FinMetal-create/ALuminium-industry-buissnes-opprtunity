@@ -1,4 +1,6 @@
-"""Alloy strategy memo, revision 4 -- single board model (Appendix B). Sections R4.x reconcile with the group board paper v6.
+"""Alloy strategy memo, revision 5 -- single board model (Appendix B). Sections R4.x reconcile with the group board paper v6;
+sections R5.x (appended; everything above them is unchanged from revision 4) book Case A on contracted scrap tonnes and
+value A3 (and A1 sweetening) on the public post-consumer scrap price ladder.
 
 Run:  python3 alloy_board_model.py   (no dependencies)
 Conventions: 2027-2040, cash flows at year index 0..13, NPV10 at 1 Jan 2027, 25% tax on
@@ -594,3 +596,205 @@ evaluate("P2 rev4, potlines curtailed from 2030 (Case A C>=190; NHT and B-rod on
          combine(caseA4(C_curt=190), LE_curt, LC, L90, LNcur, LR(rod_curt(2030, PEN), cap=capD)))
 print("  2031 EBITDA: Case A rev4", round(LA4["e"][4], 2), "; B-ext", round(LE["e"][4], 2), "; capability", round(LC["e"][4], 2),
       "; committed", round(LA4["e"][4] + LE["e"][4] + LC["e"][4], 2))
+
+
+# ===================================================================== REVISION 5
+#  (1) Case A is booked on CONTRACTED scrap tonnes: A2 kt in year y = min(T_A2, ramp(y) x purchased pool(y)).
+#      T2(c) contracts exactly the tonnes the booked value uses (both routes).
+#  (2) A3 (and A1's sweetening value) valued on the public post-consumer ladder: net 9 LME points, not 20.
+#  (3) Curtailment case split into a stranded casthouse (existing solid melt) and the option-C configuration.
+print("== R5.1 A3 substitution spread on the public post-consumer ladder (% of LME, delivered consumer)")
+LAD = {"pc 95/5 6063 / LIBS 6xxx (billet)": (87, 90, 89), "taint/tabor (sheet)": (78, 85, 82), "old rolled / mixed wrought (sheet)": (80, 86, 83)}
+for k, v in LAD.items(): print(f"  {k}: range {v[0]}-{v[1]}, central {v[2]}")
+bil = LAD["pc 95/5 6063 / LIBS 6xxx (billet)"]; tt = LAD["taint/tabor (sheet)"]; orr = LAD["old rolled / mixed wrought (sheet)"]
+sheet = tuple((tt[i] + orr[i]) / 2 for i in range(3))
+blend = tuple(0.5 * bil[i] + 0.5 * sheet[i] for i in range(3))
+gross3 = (100 - blend[1], 100 - blend[0], 100 - blend[2])          # (low, high, central) gross spread, points
+DED = {"extra melt loss net of dross recovery": (2.0, 3.0, 2.5), "remelt energy + CO2 vs hot metal": (1.4, 2.1, 1.8), "decoat, sampling, LIBS QA, Mg/Si trim": (0.5, 1.4, 1.0)}
+ded = tuple(sum(v[i] for v in DED.values()) for i in range(3))   # (low, high, central) deduction
+print(f"  50/50 billet/sheet blend: {blend[2]:.2f}% of LME (range {blend[0]:.2f}-{blend[1]:.2f}); gross spread {gross3[2]:.2f} pts (range {gross3[0]:.2f}-{gross3[1]:.2f})")
+for k, v in DED.items(): print(f"  deduction {k}: {v[0]}-{v[1]} (central {v[2]}) pts")
+net_c = gross3[2] - ded[2]; net_lo = gross3[0] - ded[1]; net_hi = gross3[1] - ded[0]
+print(f"  net A3 spread: central {net_c:.2f} pts -> booked {round(net_c):d} pts = EUR {round(net_c)*PT:.0f}/t; range {net_lo:.2f}-{net_hi:.2f} -> booked range 6-13 pts")
+print(f"  rev4 basis: 80% of LME, 20 pts = EUR {20*PT:.0f}/t, no deductions (withdrawn). P1020 DP basis upside (not booked): +{(P1020_DP-LME)/PT:.1f} pts")
+A3P = (6, 13, 9)                     # booked net A3 points (low, high, base)
+A3KT5 = (10, 30, 15)
+print(f"  A3 EUR M/yr low/high/base: {[round(A3KT5[i]*A3P[i]*PT/1000, 2) for i in range(3)]} (rev4 {[round(x, 2) for x in A3]})")
+
+print("== R5.2 A1 restated with the A3 net spread in the sweetening value (method of R4.1 unchanged)")
+A1_R5 = []
+for lab, sw, yp, cap, keep in (("low", 2.0, 0.20, 5, 0.3), ("high", 5.0, 0.50, 15, 0.5), ("base", 3.5, 0.35, 10, 0.4)):
+    s_ = sw / 100 * A3P[2] * PT; yv = yp / 100 * P1020_DP; sh = yv / (s_ + yv)
+    yc = sh * cap; ch = cap - yc; ret = yc * keep; netpt = ch + ret
+    A1_R5.append(netpt * 0.3)
+    print(f"  {lab}: sweetening {s_:.1f} + yield {yv:.1f}; yield share {sh*100:.1f}%; capped {cap}: charge {ch:.2f}, retained yield {ret:.2f} -> A1 net {netpt:.2f} EUR/t = {netpt*0.3:.2f} EUR M/yr")
+A1_R5 = tuple(A1_R5)
+print(f"  robot EUR {ROBOT_METAL:.2f}/t + A1 base {A1_R5[2]/0.3:.2f} = {ROBOT_METAL + A1_R5[2]/0.3:.1f} EUR/t")
+
+print("== R5.3 Case A booked on contracted tonnes (A2 kt = min(T_A2, ramp x pool)); A3 at 9 net pts")
+def a2_kt5(y, C=130, hub_on=True, load=None, C_curt=None, TA2=None):
+    c = C_curt if (C_curt is not None and y >= 2030) else C
+    pool = max(0.0, min(100.0, c - (90 * hub_load(y, load) if hub_on else 0)))
+    v = ph(y) * pool
+    return v if TA2 is None else min(TA2, v)
+def caseA5(lv=2, C=130, pts=8, a3p=None, a3kt=None, hub_on=True, load=None, C_curt=None, TA2=40, a1=None, a1_scale_curt=None,
+           a2on=True, a3on=True, a4on=True, cap=None, opex=None, grant=None, name=None, show=False, ret_levers=False):
+    cap = capA if cap is None else cap; opex = (3.0, 2.0, 2.5)[lv] if opex is None else opex
+    a1f = A1_R5[lv] if a1 is None else a1; a3p = A3P[lv] if a3p is None else a3p; a3kt = A3KT5[lv] if a3kt is None else a3kt
+    e = {}; lev = {}
+    for y in Y:
+        l1 = a1f * (1.25 / 3.0 if y == 2027 else 1.0) * (a1_scale_curt if (a1_scale_curt is not None and y >= 2030) else 1.0)
+        l2 = a2_kt5(y, C, hub_on, load, C_curt, TA2) * pts * PT / 1000 if a2on else 0
+        l3 = ((5 if y == 2029 else (a3kt if y >= 2030 else 0)) * a3p * PT / 1000) if a3on else 0
+        l4 = (A4[lv] if y >= 2030 else 0) if a4on else 0
+        l5 = A5[lv] * {2028: 1.0 / 3.0, 2029: 2.2 / 3.0}.get(y, 1.0 if y >= 2030 else 0.0)
+        g = l1 + l2 + l3 + l4 + l5; lev[y] = (l1, l2, l3, l4, l5, g)
+        e[y] = 0.8 * g - (1.5 if y == 2027 else opex)
+    L = line(cap, e, grant=grant, sust=sustA)
+    if name: evaluate(name, L, show=show)
+    if ret_levers: return L, lev
+    return L
+# audit: reproduce the CEO's re-run (rev4 levers, ramp applied to contracted tonnes: ph x min(100, 40))
+_orig = a2_kt
+a2_kt = lambda y, C=130, hub_on=True, load=None, C_curt=None: ph(y) * max(0.0, min(100.0, 40.0))
+print(f"  audit, CEO re-run caseA4(hub_on=False, A2 = ph x min(100, 40)): NPV10 {npv_of(caseA4(hub_on=False)):.1f} "
+      "(applies the qualification ramp to the contracted tonnes; rev5 caps instead: min(T_A2, ramp x pool))")
+a2_kt = _orig
+LA5, levA5 = caseA5(ret_levers=True)
+print("  year  A1    A2(kt)  A2    A3    A4    A5   gross  net   EBITDA")
+for y in range(2027, 2032):
+    l1, l2, l3, l4, l5, g = levA5[y]
+    print(f"  {y} {l1:5.2f} {a2_kt5(y, TA2=40):6.1f} {l2:5.2f} {l3:5.2f} {l4:5.2f} {l5:5.2f} {g:6.2f} {0.8*g:5.2f} {0.8*g-(1.5 if y==2027 else 2.5):6.2f}")
+for lv, lab, C, pts, ta in ((0, "low", 100, 6, None), (1, "high", 190, 10, None), (2, "base", 130, 8, 40)):
+    _, lv_ = caseA5(lv=lv, C=C, pts=pts, TA2=ta, ret_levers=True); g = lv_[2031]; op = (3.0, 2.0, 2.5)[lv]
+    print(f"  steady state 2031 {lab}: A1 {g[0]:.2f} A2 {g[1]:.2f} A3 {g[2]:.2f} A4 {g[3]:.2f} A5 {g[4]:.2f} gross {g[5]:.2f} haircut {-0.2*g[5]:.2f} net {0.8*g[5]:.2f} opex {-op:.2f} EBITDA {0.8*g[5]-op:.2f}")
+g31 = levA5[2031]
+print(f"  shares of gross 2031: A2 {g31[1]/g31[5]*100:.1f}%, A3 {g31[2]/g31[5]*100:.1f}%; haircut {0.2*g31[5]:.2f} vs A1 charge-cost component")
+print("-- Case A rev5 runs (contracted tonnes: hub route 40 kt lower-rung + 15 kt A3 grades)")
+caseA5(name="A5 decision basis: hub built, 55 kt contracted (A2 40 + A3 15), A2 8 pts, A3 9 pts, no grant", show=True)
+LA5c = caseA5(cap={k: v * 1.1 for k, v in capA.items()}, name="A5 +10% capex contingency")
+caseA5(grant={2028: 2.1, 2029: 2.1}, name="A5 with IF grant 4.2")
+caseA5(lv=0, C=100, pts=6, TA2=None, cap={2027: 11, 2028: 13, 2029: 8, 2030: 3}, name="A5 low: capex 35, C 100, A2 6 pts, A3 10 kt x 6 pts, low levers, opex 3")
+caseA5(lv=1, C=190, pts=10, TA2=None, cap={2027: 6, 2028: 7, 2029: 4, 2030: 1}, name="A5 high: capex 18, C 190 (100 kt contracted), A2 10 pts, A3 30 kt x 13 pts, high levers")
+caseA5(C=100, TA2=None, name="A5 C 100 kt (hub built; A2 10 kt)")
+caseA5(C=190, TA2=None, name="A5 C 190 kt (hub built; needs 100 kt lower-rung contracted)")
+caseA5(pts=6, name="A5 A2 6 pts"); caseA5(pts=10, name="A5 A2 10 pts")
+for p_ in (6, 8, 13, 16, 20):
+    caseA5(a3p=p_, name=f"A5 A3 at {p_} net pts")
+caseA5(load=SLIP["load"], name="A5 hub start-up slips to Q3 2029 (A2 still capped at 40 contracted)")
+caseA5(a2on=False, name="A5 A2 = 0")
+caseA5(a4on=False, name="A5 A4 = 0")
+caseA5(a2on=False, a3on=False, name="A5 no scrap source but full EUR 27M spent (A2 = A3 = 0)")
+LA5_rescope = caseA5(a2on=False, a3on=False, a4on=False, cap={2027: 5.5}, opex=1.0, name="A5 re-scoped after failed T2 (T1 5.5 only; A1 + A5; opex 1.0)")
+caseA5(pts=6, a3p=6, cap={k: v * 1.1 for k, v in capA.items()}, name="A5 T2(d) floor: A2 6 pts and A3 6 pts, +10% contingency")
+print("-- bridge rev4 -> rev5 (NPV10)")
+c0 = npv_of(LA4)
+_t = caseA5(a1=A1_R4[2], a3p=20, TA2=40); c1 = npv_of(_t)
+_t = caseA5(a1=A1_R4[2], a3p=9, TA2=40); c2 = npv_of(_t)
+c3 = npv_of(LA5)
+print(f"  rev4 decision basis {c0:.1f}; A2 capped at 40 kt contracted in 2029 {c1:.1f} ({c1-c0:+.1f}); A3 at 9 net pts {c2:.1f} ({c2-c1:+.1f}); A1 sweetening at A3 spread {c3:.1f} ({c3-c2:+.1f})")
+
+print("== R5.4 No-hub route booked on contracted tonnes (T = A2 lower-rung + 15 kt A3 grades)")
+cfA5 = cfs_of(LA5) + [0.0, 0.0]
+def comb5(hcfs, acfs=cfA5):
+    s_ = [a + h for a, h in zip(acfs, hcfs)]; return npv_s(s_), irr(s_), s_
+H12 = comb5(hub()[1])[0]; H14 = comb5(hub(spr=14)[1])[0]; H15 = comb5(hub(spr=15)[1])[0]
+def be_int5(ref):
+    lo, hi = 5, 40
+    for _ in range(60):
+        m = (lo + hi) / 2; lo, hi = (m, hi) if comb5(hub(spr=m)[1])[0] < ref else (lo, m)
+    return m
+def be_ext5(acfs, ref):
+    lo, hi = 5, 40
+    for _ in range(60):
+        m = (lo + hi) / 2; lo, hi = (m, hi) if comb5(hub(spr=m - 1.5)[1], acfs)[0] < ref else (lo, m)
+    return m
+P0_5 = combine(LA5, LE, LC, L90, Lopt)
+NOHUB = {}
+print("  T(kt) A2  CaseA  IRR    P0    EV50@12  EV50@14  int.thr  ext.thr")
+for T in (40, 55, 70, 85, 100, 115):
+    L_ = caseA5(hub_on=False, TA2=T - 15); a_ = npv_of(L_); r_ = irr(cfs_of(L_)); cf_ = cfs_of(L_) + [0, 0]
+    p_ = npv_of(combine(L_, LE, LC, L90, Lopt)); NOHUB[T] = (a_, p_)
+    print(f"  {T:4d} {T-15:4d} {a_:6.1f} {r_*100:5.1f}% {p_:6.1f}  {0.5*H12+0.5*a_:6.1f}  {0.5*H14+0.5*a_:6.1f}  {be_int5(a_):6.1f}  {be_ext5(cf_, a_):6.1f}")
+n0 = npv_of(caseA4(hub_on=False)); n1 = npv_of(caseA5(hub_on=False, TA2=100, a1=A1_R4[2], a3p=20))
+n2 = npv_of(caseA5(hub_on=False, TA2=40, a1=A1_R4[2], a3p=20)); n3 = npv_of(caseA5(hub_on=False, TA2=40))
+print(f"  no-hub bridge: rev4 {n0:.1f} (115 kt, A3 20 pts) -> same at rev5 cap formula {n1:.1f}; booked on the 55 kt T2(c) requires {n2:.1f} ({n2-n1:+.1f}); "
+      f"A3 at 9 pts and A1 at A3 spread {n3:.1f} ({n3-n2:+.1f}); slope above 55 kt EUR {(NOHUB[70][0]-NOHUB[55][0])/15:.2f}M per kt (55-70), {(NOHUB[115][0]-NOHUB[55][0])/60:.2f} (55-115)")
+print(f"  combined hub + Case A (hub route, 55 kt): 12 pts {H12:.1f}, 14 pts {H14:.1f}, 15 pts {H15:.1f}")
+def solveT(target):
+    lo, hi = 15, 115
+    for _ in range(50):
+        m = (lo + hi) / 2; lo, hi = (m, hi) if npv_of(caseA5(hub_on=False, TA2=m - 15)) < target else (lo, m)
+    return m
+print(f"  no-hub tonnes needed to equal: decision basis {npv_of(LA5):.1f} -> {solveT(npv_of(LA5)):.1f} kt; combined@12 {H12:.1f} -> {solveT(H12):.1f} kt; "
+      f"combined@14 {H14:.1f} -> {solveT(H14):.1f} kt; combined@15 {H15:.1f} -> {solveT(H15):.1f} kt")
+for pts_ in (7, 6):
+    print(f"  115 kt with a security-of-supply premium ({8-pts_} pt): A2 at {pts_} net pts -> Case A {npv_of(caseA5(hub_on=False, TA2=100, pts=pts_)):.1f}")
+def T_for_threshold(th):
+    lo, hi = 55, 200
+    for _ in range(40):
+        m = (lo + hi) / 2; lo, hi = (m, hi) if be_int5(npv_of(caseA5(hub_on=False, TA2=min(100, m - 15)))) < th else (lo, m)
+    return m
+print(f"  contracted tonnes at which the internal threshold reaches the hub's 14-pt FID gate: {T_for_threshold(14):.1f} kt")
+print(f"  hub NPV = 0 at 12.8 pts (R4.4); NPV per hub point ~ {(hub(spr=14)[0]-hub(spr=12)[0])/2:.2f}")
+
+print("== R5.5 Case A + hub as one investment, rev5 basis")
+for lab, kw in (("12 pts", dict(spr=12)), ("14 pts", dict(spr=14)), ("15 pts", dict(spr=15))):
+    hn, hc, _ = hub(**kw); n, r, _ = comb5(hc)
+    print(f"  {lab}: hub {hn:.1f} + Case A {npv_s(cfA5):.1f} = {n:.1f}  IRR {r*100:.1f}%")
+for spr in (12, 14, 15):
+    hn, hc, _ = hub(spr=spr, cap=HUB_CAP_FID); n, r, _ = comb5(hc)
+    print(f"  post-FID phasing {spr} pts: hub {hn:.1f}, combined {n:.1f} IRR {r*100:.1f}%")
+hs, hcs, _ = hub(**SLIP); cAs5 = cfs_of(caseA5(load=SLIP["load"])) + [0, 0]
+print(f"  slip to Q3 2029, 12 pts: hub {hs:.1f} + Case A {npv_s(cAs5):.1f} = {hs+npv_s(cAs5):.1f}")
+for C in (100, 190):
+    cAc = cfs_of(caseA5(C=C, TA2=None)) + [0, 0]
+    print(f"  C {C}: Case A {npv_s(cAc):.1f}; + hub 12 {comb5(hub()[1], cAc)[0]:.1f}; + hub 14 {comb5(hub(spr=14)[1], cAc)[0]:.1f}")
+for T in (55, 70):
+    cN = cfs_of(caseA5(hub_on=False, TA2=T - 15)) + [0, 0]
+    print(f"  external offtake, casthouse keeps its contracted {T} kt: " + "; ".join(f"{s_} pts {comb5(hub(spr=s_-1.5)[1], cN)[0]:.1f}" for s_ in (12, 14, 15)))
+print(f"  strict windows (75%), 12 / 14 pts: hub {hub(0.75, 12)[0]:.1f} / {hub(0.75, 14)[0]:.1f}")
+s12_5 = comb5(hub()[1])[2]; cum = 0
+print("  combined cash flow rev5, 12 pts (EUR M)")
+for i, y in enumerate(HY):
+    cum += s12_5[i]
+    if y <= 2033 or y in (2035, 2040, 2041, 2042): print(f"  {y} CaseA {cfA5[i]:6.1f} hub {hub()[1][i]:6.1f} combined {s12_5[i]:6.1f} cum {cum:6.1f}")
+for p_ in (0.5,):
+    for T in (55, 70):
+        print(f"  EV at P(FID) {p_}, contracted {T} kt: 12 pts {p_*H12+(1-p_)*NOHUB[T][0]:.1f}; 14 pts {p_*H14+(1-p_)*NOHUB[T][0]:.1f}")
+
+print("== R5.6 Potlines curtailed from 2030: Case A by casthouse configuration (public analogues: Rheinwerk, Trimet Essen, Slovalco, Aldel)")
+CURT = {}
+for lab, kw in (("stranded, existing melt, C 130 (A1 x 145/300)", dict(C_curt=130, a1_scale_curt=145 / 300)),
+                ("stranded, existing melt, C 100 (A1 x 115/300)", dict(C_curt=100, a1_scale_curt=115 / 300)),
+                ("option-C configuration, C 190, A2 at 40 kt contracted", dict(C_curt=190)),
+                ("option-C configuration, C 190, A2 at 100 kt contracted", dict(C_curt=190, TA2=100))):
+    L_ = caseA5(**kw); CURT[lab] = L_
+    Lc_ = caseA5(cap={k: v * 1.1 for k, v in capA.items()}, **kw)
+    print(f"  {lab}: Case A {npv_of(L_):.1f} (IRR {irr(cfs_of(L_))*100:.1f}%), with contingency {npv_of(Lc_):.1f}")
+for lab in ("stranded, existing melt, C 130 (A1 x 145/300)", "option-C configuration, C 190, A2 at 100 kt contracted"):
+    cc = cfs_of(CURT[lab]) + [0, 0]
+    print(f"  + hub, {lab}: 12 pts {comb5(hub()[1], cc)[0]:.1f}; 14 pts {comb5(hub(spr=14)[1], cc)[0]:.1f}")
+print(f"  solid-melt gap for C 190 vs existing 80-130 kt: 60-110 kt x EUR 600-1,000 per t/yr = EUR {60*0.6:.0f}-{110*1.0:.0f}M (central 85 x 800 = {85*0.8:.0f}M); option C, not in this memo")
+print(f"  scrap needed for 190 kt liquid: {190/0.95:.0f} kt at 95% yield to {190/0.8:.0f} kt at 80%; ratio 190/300 primary = {190/300*100:.0f}%")
+
+print("== R5.7 PORTFOLIO, revision 5 basis")
+evaluate("Case A rev5 + full capability centre", combine(LA5, LC))
+evaluate("P0 rev5 committed: A + B-ext + capability + 90-day + pre-gate options", P0_5, show=True)
+evaluate("P0 rev5 with 10% contingency on A and B-ext", combine(LA5c, LEc, LC, L90, Lopt))
+for T in (55, 70, 115):
+    evaluate(f"P0 rev5, hub not built, {T} kt contracted", combine(caseA5(hub_on=False, TA2=T - 15), LE, LC, L90, Lopt))
+for lab, L_ in CURT.items():
+    evaluate(f"P0 rev5, potlines curtailed from 2030, {lab}", combine(L_, LE_curt, LC, L90, Lopt))
+evaluate("P0 rev5, Case A low case", combine(caseA5(lv=0, C=100, pts=6, TA2=None, cap={2027: 11, 2028: 13, 2029: 8, 2030: 3}), LE, LC, L90, Lopt))
+evaluate("P0 rev5, Case A re-scoped after a failed T2", combine(LA5_rescope, LE, LC, L90, Lopt))
+evaluate("P0 rev5, A3 at 6 / T2(d) floor (A2 6, A3 6)", combine(caseA5(pts=6, a3p=6), LE, LC, L90, Lopt))
+evaluate("P0 rev5, A3 at 13 pts", combine(caseA5(a3p=13), LE, LC, L90, Lopt))
+evaluate("P1 rev5 = P0 + NHT (ICC renewed)", combine(LA5, LE, LC, L90, Lrod_opt, LNd))
+evaluate("P2 rev5 = P1 + B-rod (ICC renewed)", combine(LA5, LE, LC, L90, LNd, LR(blend_central, cap=capR_k(1.1))))
+evaluate("P2 rev5, potlines curtailed 2030, stranded C 130",
+         combine(CURT["stranded, existing melt, C 130 (A1 x 145/300)"], LE_curt, LC, L90, LNcur, LR(rod_curt(2030, PEN), cap=capD)))
+print("  standalone sum: Case A", round(npv_of(LA5), 1), "+ B-ext", round(npv_of(LE), 1), "+ capability", round(npv_of(LC), 1), "+ 90-day", round(npv_of(L90), 1), "+ options", round(npv_of(Lopt), 1),
+      "=", round(npv_of(LA5) + npv_of(LE) + npv_of(LC) + npv_of(L90) + npv_of(Lopt), 1))
+print("  2031 EBITDA: Case A rev5", round(LA5["e"][4], 2), "; B-ext", round(LE["e"][4], 2), "; capability", round(LC["e"][4], 2),
+      "; committed", round(LA5["e"][4] + LE["e"][4] + LC["e"][4], 2))

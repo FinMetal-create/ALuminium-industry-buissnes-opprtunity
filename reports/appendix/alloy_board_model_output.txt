@@ -418,3 +418,157 @@
   P2 rev4 = P1 + B-rod (ICC renewed): NPV10 37.7  IRR 16.0%  payback 2034
   P2 rev4, potlines curtailed from 2030 (Case A C>=190; NHT and B-rod on purchased P1020, pen 115): NPV10 58.9  IRR 18.9%  payback 2033
   2031 EBITDA: Case A rev4 15.19 ; B-ext 5.5 ; capability -2.8 ; committed 17.89
+== R5.1 A3 substitution spread on the public post-consumer ladder (% of LME, delivered consumer)
+  pc 95/5 6063 / LIBS 6xxx (billet): range 87-90, central 89
+  taint/tabor (sheet): range 78-85, central 82
+  old rolled / mixed wrought (sheet): range 80-86, central 83
+  50/50 billet/sheet blend: 85.75% of LME (range 83.00-87.75); gross spread 14.25 pts (range 12.25-17.00)
+  deduction extra melt loss net of dross recovery: 2.0-3.0 (central 2.5) pts
+  deduction remelt energy + CO2 vs hot metal: 1.4-2.1 (central 1.8) pts
+  deduction decoat, sampling, LIBS QA, Mg/Si trim: 0.5-1.4 (central 1.0) pts
+  net A3 spread: central 8.95 pts -> booked 9 pts = EUR 194/t; range 5.75-13.10 -> booked range 6-13 pts
+  rev4 basis: 80% of LME, 20 pts = EUR 431/t, no deductions (withdrawn). P1020 DP basis upside (not booked): +12.8 pts
+  A3 EUR M/yr low/high/base: [1.29, 8.4, 2.91] (rev4 [4.31, 12.93, 6.46])
+== R5.2 A1 restated with the A3 net spread in the sweetening value (method of R4.1 unchanged)
+  low: sweetening 3.9 + yield 4.9; yield share 55.6%; capped 5: charge 2.22, retained yield 0.83 -> A1 net 3.05 EUR/t = 0.92 EUR M/yr
+  high: sweetening 9.7 + yield 12.2; yield share 55.6%; capped 15: charge 6.66, retained yield 4.17 -> A1 net 10.83 EUR/t = 3.25 EUR M/yr
+  base: sweetening 6.8 + yield 8.5; yield share 55.6%; capped 10: charge 4.44, retained yield 2.22 -> A1 net 6.66 EUR/t = 2.00 EUR M/yr
+  robot EUR 7.29/t + A1 base 6.66 = 14.0 EUR/t
+== R5.3 Case A booked on contracted tonnes (A2 kt = min(T_A2, ramp x pool)); A3 at 9 net pts
+  audit, CEO re-run caseA4(hub_on=False, A2 = ph x min(100, 40)): NPV10 42.1 (applies the qualification ramp to the contracted tonnes; rev5 caps instead: min(T_A2, ramp x pool))
+  year  A1    A2(kt)  A2    A3    A4    A5   gross  net   EBITDA
+  2027  0.83    0.0  0.00  0.00  0.00  0.00   0.83  0.67  -0.83
+  2028  2.00   28.0  4.83  0.00  0.00  1.00   7.83  6.26   3.76
+  2029  2.00   40.0  6.90  0.97  0.00  2.20  12.06  9.65   7.15
+  2030  2.00   40.0  6.90  2.91  3.40  3.00  18.20 14.56  12.06
+  2031  2.00   40.0  6.90  2.91  3.40  3.00  18.20 14.56  12.06
+  steady state 2031 low: A1 0.92 A2 1.29 A3 1.29 A4 1.80 A5 2.00 gross 7.30 haircut -1.46 net 5.84 opex -3.00 EBITDA 2.84
+  steady state 2031 high: A1 3.25 A2 21.55 A3 8.40 A4 6.40 A5 5.00 gross 44.60 haircut -8.92 net 35.68 opex -2.00 EBITDA 33.68
+  steady state 2031 base: A1 2.00 A2 6.90 A3 2.91 A4 3.40 A5 3.00 gross 18.20 haircut -3.64 net 14.56 opex -2.50 EBITDA 12.06
+  shares of gross 2031: A2 37.9%, A3 16.0%; haircut 3.64 vs A1 charge-cost component
+-- Case A rev5 runs (contracted tonnes: hub route 40 kt lower-rung + 15 kt A3 grades)
+  A5 decision basis: hub built, 55 kt contracted (A2 40 + A3 15), A2 8 pts, A3 9 pts, no grant
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027    -9.0    -0.8   -0.0    0.0    0.0   -9.8   -9.8
+  2028   -10.0     3.8   -0.6    0.0    0.0   -6.9  -16.7
+  2029    -6.0     7.2   -1.4    0.0    0.0   -0.2  -16.9
+  2030    -2.0    12.1   -2.6    0.0    0.0    7.5   -9.4
+  2031    -0.5    12.1   -2.6    0.0    0.0    9.0   -0.4
+  2032    -0.5    12.1   -2.5    0.0    0.0    9.0    8.6
+  2033    -0.5    12.1   -2.5    0.0    0.0    9.0   17.6
+  2034    -0.5    12.1   -2.5    0.0    0.0    9.0   26.7
+  2035    -0.5    12.1   -2.5    0.0    0.0    9.0   35.7
+  2036    -0.5    12.1   -2.5    0.0    0.0    9.0   44.7
+  2037    -0.5    12.1   -2.5    0.0    0.0    9.1   53.8
+  2038    -0.5    12.1   -2.5    0.0    0.0    9.1   62.9
+  2039    -0.5    12.1   -2.5    0.0    0.0    9.1   71.9
+  2040    -0.5    12.1   -2.5    0.0    0.0    9.1   81.0
+  A5 decision basis: hub built, 55 kt contracted (A2 40 + A3 15), A2 8 pts, A3 9 pts, no grant: NPV10 31.1  IRR 31.3%  payback 2032
+  A5 +10% capex contingency: NPV10 28.9  IRR 28.4%  payback 2032
+  A5 with IF grant 4.2: NPV10 34.7  IRR 36.3%  payback 2031
+  A5 low: capex 35, C 100, A2 6 pts, A3 10 kt x 6 pts, low levers, opex 3: NPV10 -17.9  IRR -3.8%  payback None
+  A5 high: capex 18, C 190 (100 kt contracted), A2 10 pts, A3 30 kt x 13 pts, high levers: NPV10 133.7  IRR 108.9%  payback 2029
+  A5 C 100 kt (hub built; A2 10 kt): NPV10 12.9  IRR 19.9%  payback 2033
+  A5 C 190 kt (hub built; needs 100 kt lower-rung contracted): NPV10 67.0  IRR 49.5%  payback 2031
+  A5 A2 6 pts: NPV10 24.0  IRR 26.6%  payback 2032
+  A5 A2 10 pts: NPV10 38.2  IRR 36.1%  payback 2031
+  A5 A3 at 6 net pts: NPV10 27.8  IRR 29.5%  payback 2032
+  A5 A3 at 8 net pts: NPV10 30.0  IRR 30.7%  payback 2032
+  A5 A3 at 13 net pts: NPV10 35.5  IRR 33.7%  payback 2031
+  A5 A3 at 16 net pts: NPV10 38.8  IRR 35.5%  payback 2031
+  A5 A3 at 20 net pts: NPV10 43.1  IRR 37.7%  payback 2031
+  A5 hub start-up slips to Q3 2029 (A2 still capped at 40 contracted): NPV10 31.1  IRR 31.3%  payback 2032
+  A5 A2 = 0: NPV10 2.5  IRR 11.8%  payback 2035
+  A5 A4 = 0: NPV10 20.1  IRR 25.1%  payback 2032
+  A5 no scrap source but full EUR 27M spent (A2 = A3 = 0): NPV10 -7.5  IRR 3.9%  payback 2038
+  A5 re-scoped after failed T2 (T1 5.5 only; A1 + A5; opex 1.0): NPV10 6.7  IRR 26.7%  payback 2031
+  A5 T2(d) floor: A2 6 pts and A3 6 pts, +10% contingency: NPV10 18.6  IRR 22.2%  payback 2033
+-- bridge rev4 -> rev5 (NPV10)
+  rev4 decision basis 45.3; A2 capped at 40 kt contracted in 2029 44.8 (-0.6); A3 at 9 net pts 32.7 (-12.0); A1 sweetening at A3 spread 31.1 (-1.6)
+== R5.4 No-hub route booked on contracted tonnes (T = A2 lower-rung + 15 kt A3 grades)
+  T(kt) A2  CaseA  IRR    P0    EV50@12  EV50@14  int.thr  ext.thr
+    40   25   21.2  25.0%   16.7    22.2    31.8    11.8    14.3
+    55   40   31.1  31.3%   26.6    27.1    36.7    12.8    14.3
+    70   55   40.7  37.0%   36.2    32.0    41.5    13.8    14.3
+    85   70   50.3  42.5%   45.8    36.8    46.3    14.8    14.3
+   100   85   58.6  46.1%   54.2    40.9    50.5    15.7    14.3
+   115  100   67.0  49.5%   62.5    45.1    54.7    16.6    14.3
+  no-hub bridge: rev4 80.6 (115 kt, A3 20 pts) -> same at rev5 cap formula 80.6; booked on the 55 kt T2(c) requires 44.8 (-35.9); A3 at 9 pts and A1 at A3 spread 31.1 (-13.7); slope above 55 kt EUR 0.64M per kt (55-70), 0.60 (55-115)
+  combined hub + Case A (hub route, 55 kt): 12 pts 23.2, 14 pts 42.3, 15 pts 51.9
+  no-hub tonnes needed to equal: decision basis 31.1 -> 55.0 kt; combined@12 23.2 -> 42.7 kt; combined@14 42.3 -> 72.5 kt; combined@15 51.9 -> 87.8 kt
+  115 kt with a security-of-supply premium (1 pt): A2 at 7 net pts -> Case A 59.0
+  115 kt with a security-of-supply premium (2 pt): A2 at 6 net pts -> Case A 50.9
+  contracted tonnes at which the internal threshold reaches the hub's 14-pt FID gate: 72.5 kt
+  hub NPV = 0 at 12.8 pts (R4.4); NPV per hub point ~ 9.56
+== R5.5 Case A + hub as one investment, rev5 basis
+  12 pts: hub -7.9 + Case A 31.1 = 23.2  IRR 14.7%
+  14 pts: hub 11.2 + Case A 31.1 = 42.3  IRR 18.2%
+  15 pts: hub 20.8 + Case A 31.1 = 51.9  IRR 19.8%
+  post-FID phasing 12 pts: hub -5.7, combined 25.4 IRR 15.5%
+  post-FID phasing 14 pts: hub 13.5, combined 44.6 IRR 19.3%
+  post-FID phasing 15 pts: hub 23.0, combined 54.1 IRR 21.1%
+  slip to Q3 2029, 12 pts: hub -8.1 + Case A 31.1 = 23.0
+  C 100: Case A 12.9; + hub 12 5.0; + hub 14 24.2
+  C 190: Case A 67.0; + hub 12 59.1; + hub 14 78.2
+  external offtake, casthouse keeps its contracted 55 kt: 12 pts 8.8; 14 pts 28.0; 15 pts 37.5
+  external offtake, casthouse keeps its contracted 70 kt: 12 pts 18.4; 14 pts 37.6; 15 pts 47.2
+  strict windows (75%), 12 / 14 pts: hub -27.1 / -11.1
+  combined cash flow rev5, 12 pts (EUR M)
+  2027 CaseA   -9.8 hub  -27.5 combined  -37.3 cum  -37.3
+  2028 CaseA   -6.9 hub  -33.8 combined  -40.6 cum  -78.0
+  2029 CaseA   -0.2 hub    6.8 combined    6.6 cum  -71.4
+  2030 CaseA    7.5 hub    7.4 combined   14.9 cum  -56.4
+  2031 CaseA    9.0 hub    7.2 combined   16.2 cum  -40.2
+  2032 CaseA    9.0 hub    7.2 combined   16.2 cum  -24.1
+  2033 CaseA    9.0 hub    7.2 combined   16.2 cum   -7.9
+  2035 CaseA    9.0 hub    7.2 combined   16.2 cum   24.5
+  2040 CaseA    9.1 hub    7.2 combined   16.2 cum  105.7
+  2041 CaseA    0.0 hub    7.2 combined    7.2 cum  112.8
+  2042 CaseA    0.0 hub   17.2 combined   17.2 cum  130.0
+  EV at P(FID) 0.5, contracted 55 kt: 12 pts 27.1; 14 pts 36.7
+  EV at P(FID) 0.5, contracted 70 kt: 12 pts 32.0; 14 pts 41.5
+== R5.6 Potlines curtailed from 2030: Case A by casthouse configuration (public analogues: Rheinwerk, Trimet Essen, Slovalco, Aldel)
+  stranded, existing melt, C 130 (A1 x 145/300): Case A 27.8 (IRR 29.6%), with contingency 25.6
+  stranded, existing melt, C 100 (A1 x 115/300): Case A 10.5 (IRR 18.7%), with contingency 8.3
+  option-C configuration, C 190, A2 at 40 kt contracted: Case A 31.1 (IRR 31.3%), with contingency 28.9
+  option-C configuration, C 190, A2 at 100 kt contracted: Case A 65.0 (IRR 47.1%), with contingency 62.9
+  + hub, stranded, existing melt, C 130 (A1 x 145/300): 12 pts 19.9; 14 pts 39.0
+  + hub, option-C configuration, C 190, A2 at 100 kt contracted: 12 pts 57.1; 14 pts 76.2
+  solid-melt gap for C 190 vs existing 80-130 kt: 60-110 kt x EUR 600-1,000 per t/yr = EUR 36-110M (central 85 x 800 = 68M); option C, not in this memo
+  scrap needed for 190 kt liquid: 200 kt at 95% yield to 238 kt at 80%; ratio 190/300 primary = 63%
+== R5.7 PORTFOLIO, revision 5 basis
+  Case A rev5 + full capability centre: NPV10 10.3  IRR 15.9%  payback 2034
+  P0 rev5 committed: A + B-ext + capability + 90-day + pre-gate options
+  year   capex  EBITDA    tax     WC  grant     CF    cum
+  2027   -13.4    -6.1   -0.0    0.0    0.0  -19.5  -19.5
+  2028   -16.0     3.7   -0.4   -0.5    0.0  -13.3  -32.8
+  2029    -7.0     8.7   -1.6   -0.5    0.0   -0.4  -33.2
+  2030    -2.2    14.8   -3.0    0.0    0.0    9.5  -23.7
+  2031    -0.7    14.8   -3.0    0.0    0.0   11.0  -12.7
+  2032    -0.7    14.8   -3.0    0.0    0.0   11.0   -1.6
+  2033    -0.7    14.8   -3.0    0.0    0.0   11.1    9.4
+  2034    -0.7    14.8   -3.0    0.0    0.0   11.1   20.5
+  2035    -0.7    14.8   -3.0    0.0    0.0   11.1   31.6
+  2036    -0.7    14.8   -3.0    0.0    0.0   11.1   42.7
+  2037    -0.7    14.8   -3.0    0.0    0.0   11.1   53.8
+  2038    -0.7    14.8   -3.0    0.0    0.0   11.1   64.9
+  2039    -0.7    14.8   -2.9    0.0    0.0   11.1   76.0
+  2040    -0.7    14.8   -2.9    1.0    0.0   12.1   88.1
+  P0 rev5 committed: A + B-ext + capability + 90-day + pre-gate options: NPV10 26.6  IRR 21.0%  payback 2033
+  P0 rev5 with 10% contingency on A and B-ext: NPV10 23.8  IRR 19.3%  payback 2033
+  P0 rev5, hub not built, 55 kt contracted: NPV10 26.6  IRR 21.0%  payback 2033
+  P0 rev5, hub not built, 70 kt contracted: NPV10 36.2  IRR 24.5%  payback 2032
+  P0 rev5, hub not built, 115 kt contracted: NPV10 62.5  IRR 32.7%  payback 2031
+  P0 rev5, potlines curtailed from 2030, stranded, existing melt, C 130 (A1 x 145/300): NPV10 16.4  IRR 17.2%  payback 2033
+  P0 rev5, potlines curtailed from 2030, stranded, existing melt, C 100 (A1 x 115/300): NPV10 -1.0  IRR 9.5%  payback 2035
+  P0 rev5, potlines curtailed from 2030, option-C configuration, C 190, A2 at 40 kt contracted: NPV10 19.7  IRR 18.5%  payback 2033
+  P0 rev5, potlines curtailed from 2030, option-C configuration, C 190, A2 at 100 kt contracted: NPV10 53.6  IRR 29.6%  payback 2032
+  P0 rev5, Case A low case: NPV10 -22.6  IRR -0.3%  payback None
+  P0 rev5, Case A re-scoped after a failed T2: NPV10 2.2  IRR 11.7%  payback 2034
+  P0 rev5, A3 at 6 / T2(d) floor (A2 6, A3 6): NPV10 16.3  IRR 16.9%  payback 2033
+  P0 rev5, A3 at 13 pts: NPV10 31.0  IRR 22.5%  payback 2032
+  P1 rev5 = P0 + NHT (ICC renewed): NPV10 23.7  IRR 16.2%  payback 2034
+  P2 rev5 = P1 + B-rod (ICC renewed): NPV10 23.5  IRR 13.8%  payback 2034
+  P2 rev5, potlines curtailed 2030, stranded C 130: NPV10 8.0  IRR 11.3%  payback 2035
+  standalone sum: Case A 31.1 + B-ext 19.1 + capability -26.1 + 90-day -1.9 + options -1.0 = 21.2
+  2031 EBITDA: Case A rev5 12.06 ; B-ext 5.5 ; capability -2.8 ; committed 14.76
